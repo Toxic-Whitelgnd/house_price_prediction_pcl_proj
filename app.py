@@ -10,8 +10,12 @@ import numpy as np
 app = Flask(__name__)
 
 # MongoDB configuration
+# housepriceprediction -- cluster name
+# whitelegend56
+# gM8XTuuJOgjeIwEH 
+
 app.secret_key = "super secret key"
-client = MongoClient("mongodb://localhost:27017/")  # Connection to MongoDB, change the URI as needed
+client = MongoClient("mongodb+srv://whitelegend56:gM8XTuuJOgjeIwEH@housepriceprediction.9p9vcal.mongodb.net/?retryWrites=true&w=majority")  # Connection to MongoDB, change the URI as needed
 db = client["real_estate"]  # Database name
 collection = db["users"]
 
