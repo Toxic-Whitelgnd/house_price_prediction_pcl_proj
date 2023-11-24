@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Geocode Addresses</title>
+</head>
+<body>
+    <h2>Geocode Addresses</h2>
+    <p>Click the button to geocode addresses and update the database.</p>
+    <form action="{{ url_for('geocode_addresses') }}" method="post">
+        <button type="submit">Geocode Addresses</button>
+    </form>
+    <p><a href="{{ url_for('home') }}">Back to Home</a></p>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Price</title>
+</head>
+<body>
+    <h1>Viewing current Price</h1>
+    <div>
+        <h3>For the property</h3>
+        <h5>Sq.feet: {{sq_ft}}</h5>
+        <h5>Bed_room: {{brd_rm}}</h5>
+        <h5>School nearby: {{school}}</h5>
+        <h5>Hospital nearby: {{hospital}}</h5>
+        <h5>area: {{area}}</h5>
+        <h5>Opted for kitchen: {{kitchen}}</h5>
+        <h5>Opted for Maintainence Staff : {{manitainence_staff}}</h5>
+        <h5>Opted for car parking : {{car_park}}</h5>
+        <h5>Opted for Security : {{security}}</h5>
+        <h3>The Prdicted Price is ₹{{price}}</h3>
+    </div>
+
+    <p><a href="{{ url_for('home') }}">Back to Home</a></p>
+</body>
+</html>
