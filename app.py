@@ -149,51 +149,52 @@ def check_nearby_places():
 
         return redirect('/home')
 
-@app.route('/check_price')
+@app.route('/check_price', methods=['GET'])
 def check_price():
-    with open('xgboost_model.pkl', 'rb') as model_file:
-        model = pickle.load(model_file)
-        # print(dir1(model))
-        #np inputs -'area', 'No of Bedrooms', 'MaintanceStaff', 'Latitude', 'Longitude'
-        usr_val = collection.find({'username': session['username']})
-        for i in usr_val:
-            sq_ft = i.get('house_area')
-            brd_rm = i.get('bedrooms')
-            school = i.get('school_nearby')
-            hospital = i.get('hospital_nearby')
-            latitude = i.get('latitude')
-            longitude = i.get('longitude')
-            area = i.get('address')
-            car_parking = i.get('car_parking')
-            kitchen = i.get('kitchen')
-            manitainence_staff = i.get('manitainence')
-            security = i.get('security')
+    if request.method == 'GET':
+        with open('xgboost_model.pkl', 'rb') as model_file:
+            model = pickle.load(model_file)
+            # print(dir1(model))
+            #np inputs -'area', 'No of Bedrooms', 'MaintanceStaff', 'Latitude', 'Longitude'
+            usr_val = collection.find({'username': session['username']})
+            for i in usr_val:
+                sq_ft = i.get('house_area')
+                brd_rm = i.get('bedrooms')
+                school = i.get('school_nearby')
+                hospital = i.get('hospital_nearby')
+                latitude = i.get('latitude')
+                longitude = i.get('longitude')
+                area = i.get('address')
+                car_parking = i.get('car_parking')
+                kitchen = i.get('kitchen')
+                manitainence_staff = i.get('manitainence')
+                security = i.get('security')
 
-            
-            new_data = np.array([[sq_ft, brd_rm, float(school), float(hospital), latitude, longitude]])
-            get_price = model.predict(new_data)
-            print(get_price[0])
-            str_price = str(int(get_price[0]))
+                
+                new_data = np.array([[sq_ft, brd_rm, float(school), float(hospital), latitude, longitude]])
+                get_price = model.predict(new_data)
+                print(get_price[0])
+                str_price = str(int(get_price[0]))
 
-            if(school == 1):
-                school_new = 'yes'
-            else:
-                school_new = 'no'
+                if(school == 1):
+                    school_new = 'yes'
+                else:
+                    school_new = 'no'
 
-            if(hospital == 1):
-                hospital_new = 'yes'
-            else:
-                hospital_new = 'no'
+                if(hospital == 1):
+                    hospital_new = 'yes'
+                else:
+                    hospital_new = 'no'
 
-            car_park = 'yes' if car_parking else 'no'
-            kitchen_av = 'yes' if kitchen else 'no'
-            maint_staff = 'yes' if manitainence_staff else 'no'
-            sec = 'yes' if security else 'no'
-    
-    return render_template('check_price.html', price = str_price , sq_ft = sq_ft, brd_rm = brd_rm,school = school_new,hospital =hospital_new,
-                           area = area , car_park = car_park,kitchen = kitchen_av,
-                           
-                           manitainence_staff = maint_staff, security = sec)
+                car_park = 'yes' if car_parking else 'no'
+                kitchen_av = 'yes' if kitchen else 'no'
+                maint_staff = 'yes' if manitainence_staff else 'no'
+                sec = 'yes' if security else 'no'
+        
+        return render_template('check_price.html', price = str_price , sq_ft = sq_ft, brd_rm = brd_rm,school = school_new,hospital =hospital_new,
+                            area = area , car_park = car_park,kitchen = kitchen_av,
+                            
+                            manitainence_staff = maint_staff, security = sec)
 
 
         
