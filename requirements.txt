@@ -3,6 +3,5 @@ gunicorn
 pymongo
 geopy
 bcrypt
-pickle
 xgboost
 numpy
