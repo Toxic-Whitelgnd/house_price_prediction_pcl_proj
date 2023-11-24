@@ -1,0 +1,9 @@
+flask
+gunicorn
+pymongo
+geopy
+bcrypt
+random
+pickle
+xgboost
+numpy
