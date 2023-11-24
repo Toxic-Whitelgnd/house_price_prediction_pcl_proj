@@ -127,26 +127,27 @@ def geocode_addresses():
 
     return redirect('/home')
 
-@app.route('/check_nearby_places')
+@app.route('/check_nearby_places', methods=['GET'])
 def check_nearby_places():
-    properties = collection.find({'username': session['username']})
-    predict_model()
-    for property in properties:
-        latitude = property.get('latitude')
-        longitude = property.get('longitude')
-        
-        if latitude and longitude:
-            # Simulate random values for schools and hospitals
-            schools_exist = random.choice([0, 1])
-            hospitals_exist = random.choice([0, 1])
+    if request.method == 'GET':
+        properties = collection.find({'username': session['username']})
+        predict_model()
+        for property in properties:
+            latitude = property.get('latitude')
+            longitude = property.get('longitude')
+            
+            if latitude and longitude:
+                # Simulate random values for schools and hospitals
+                schools_exist = random.choice([0, 1])
+                hospitals_exist = random.choice([0, 1])
 
-            # Update the document with random truth values for schools and hospitals
-            collection.update_one(
-                {'_id': property['_id']},
-                {'$set': {'school_nearby': schools_exist, 'hospital_nearby': hospitals_exist}}
-            )
+                # Update the document with random truth values for schools and hospitals
+                collection.update_one(
+                    {'_id': property['_id']},
+                    {'$set': {'school_nearby': schools_exist, 'hospital_nearby': hospitals_exist}}
+                )
 
-    return redirect('/home')
+        return redirect('/home')
 
 @app.route('/check_price')
 def check_price():
